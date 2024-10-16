@@ -2,9 +2,11 @@
 
 # NORTHWIND Dataseti SQL Analizi
 
-## 1. ÜRÜN PERFORMANS ANALİZİ:
-## BELİRLİ BİR ZAMAN DİLİMİNDEKİ SATIŞ TRENDLERİNİ GÖZLEMLEMEK.
 
+#### 1. ÜRÜN PERFORMANS ANALİZİ:
+#### BELİRLİ BİR ZAMAN DİLİMİNDEKİ SATIŞ TRENDLERİNİ GÖZLEMLEMEK.
+
+```sql
 SELECT
 	TEXT(DATE_PART('year', O.ORDER_DATE)) 
 		|| '-' || 	
@@ -23,16 +25,19 @@ WHERE
 GROUP BY
 	DATE_FORMATED
 ORDER BY
-	DATE_FORMATED
+	DATE_FORMATED;
+```
 
 ![Yillik_urun_satis_bedeli](https://github.com/user-attachments/assets/33d39651-e24b-475a-85c9-2dc76d0983bd)
 
 ANALİZ YORUMU : Bu aşamada sadece 1997 yılındaki satış trendlerini inceledim. Çünkü datada diğer yıllara ait bütün ayları kapsayan tarihler mevcut değil.
 Bu aşamada görüyoruzki; satışlarda anormal bir artış yada düşüş yok. Bu da tarihlere göre satışların etkilenmediğini gösteriyor. Ama ilgimi çeken bir nokta var. O da şubat, mart ve haziran aylarında satış tutarlarının birbirine çok yakın olduğu. Bu aylar için daha detaylı araştırmalar yapılabilir.
 
-## 2.	PERSONEL PERFORMANSI ANALİZİ:
-## HANGİ ÇALIŞANLARIN DAHA FAZLA SATIŞ GERÇEKLEŞTİRDİĞİNİ VEYA DAHA YÜKSEK GELİR ELDE ETTİĞİNİ ANALİZ ETMEK.
 
+#### 2.	PERSONEL PERFORMANSI ANALİZİ:
+#### HANGİ ÇALIŞANLARIN DAHA FAZLA SATIŞ GERÇEKLEŞTİRDİĞİNİ VEYA DAHA YÜKSEK GELİR ELDE ETTİĞİNİ ANALİZ ETMEK.
+
+```
 WITH
 	CALISAN_SIPARISLERI AS (
 		SELECT
@@ -54,7 +59,8 @@ FROM
 	INNER JOIN ORDER_DETAILS AS D ON D.ORDER_ID = O.ORDER_ID
 	INNER JOIN CALISAN_SIPARISLERI AS C ON C.EMPLOYEE_ID = O.EMPLOYEE_ID
 GROUP BY CALISAN_ADI
-ORDER BY KAZANC DESC
+ORDER BY KAZANC DESC;
+```
 
 ![calisanlarin_siparis_sayilari](https://github.com/user-attachments/assets/64b78518-432e-4a5b-b5d4-ad1554b1caeb)
 
